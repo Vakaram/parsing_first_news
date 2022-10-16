@@ -22,7 +22,7 @@ def take_information():
     link_first_url = firs_news_url.find('a').get('href') #собираем href у первой новости чтобы попасть во внутр страницы
     # print(link_first_url)
     #Теперь получим ссылку, текст, фото, заголовок в 3 переменные ) и потом отправим в группу вк
-    r_second = requests.get('https://alshei.bashkortostan.ru'+link_first_url, headers=HEADERS) #отправляемся по ссылке во внутр новости
+    r_second = requests.get('https://alshei.bashkortostan.ru'+ link_first_url, headers=HEADERS) #отправляемся по ссылке во внутр новости
     soup_second = BeautifulSoup(r_second.text, 'lxml')
     zagolovok = soup_second.find_all(class_="detail__title")[0].text.strip() #получил заголовок
     print(zagolovok)
@@ -34,10 +34,15 @@ def take_information():
     photo_search = 'https://alshei.bashkortostan.ru' + photo[:-3]
     print(photo_search)
 
-take_information()
 
 
 
+
+
+# прога будет проверять каждый час новости
+#середина сделана
+#
+# вк если есть новость она принимает ссылку, фото, текст заголовок
 
 
 
