@@ -9,36 +9,32 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+def take_information():
+    HEADERS = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
+        }
+    #обратились к серву вернул 200!
+    r = requests.get('https://alshei.bashkortostan.ru/presscenter/news/', headers=HEADERS)
+    #создали объект соупа
+    soup = BeautifulSoup(r.text, 'lxml')
+    #обратились по классу, взяли второй элемент в списке т.к. первый закреплён постоянно он мне не нужен он не обновляется
+    firs_news_url = soup.find_all(class_="list__title")[1] #получаем из списка нужный элемент
+    link_first_url = firs_news_url.find('a').get('href') #собираем href у первой новости чтобы попасть во внутр страницы
+    # print(link_first_url)
+    #Теперь получим ссылку, текст, фото, заголовок в 3 переменные ) и потом отправим в группу вк
+    r_second = requests.get('https://alshei.bashkortostan.ru'+link_first_url, headers=HEADERS) #отправляемся по ссылке во внутр новости
+    soup_second = BeautifulSoup(r_second.text, 'lxml')
+    zagolovok = soup_second.find_all(class_="detail__title")[0].text.strip() #получил заголовок
+    print(zagolovok)
+    text = soup_second.find_all(class_="detail__text")[0].text.strip() #получил текст
+    print(text)
+    url_in_news  = 'https://alshei.bashkortostan.ru'+link_first_url
+    print(url_in_news)
+    photo = soup_second.find_all(class_ ='detail__main-photo')[0].get('srcset') #получаем из списка нужный элемент
+    photo_search = 'https://alshei.bashkortostan.ru' + photo[:-3]
+    print(photo_search)
 
-HEADERS = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
-    }
-#обратились к серву вернул 200!
-r = requests.get('https://alshei.bashkortostan.ru/presscenter/news/', headers=HEADERS)
-#создали объект соупа
-soup = BeautifulSoup(r.text, 'lxml')
-#обратились по классу, взяли второй элемент в списке т.к. первый закреплён постоянно он мне не нужен он не обновляется
-firs_news_url = soup.find_all(class_="list__title")[1] #получаем из списка нужный элемент
-link_first_url = firs_news_url.find('a').get('href')
-print(link_first_url)
-#Теперь получим ссылку, текст ,фото, заголовок в 3 переменные ) и потом отправим в группу вк
-r_second = requests.get('https://alshei.bashkortostan.ru'+link_first_url, headers=HEADERS)
-soup_second = BeautifulSoup(r_second.text, 'lxml')
-zagolovok = soup_second.find_all(class_="detail__title")[0].text.strip() #получил заголовок
-text = soup_second.find_all(class_="detail__text")[0].text.strip() #получил текст
-ssilka = 'https://alshei.bashkortostan.ru'+link_first_url
-photo = soup_second.find_all(class_ ='detail__main-photo')[0] #получаем из списка нужный элемент
-print(photo)
-photo_search = photo.find('img').get('srcset')
-print(photo_search)
-print(type(photo) #вован осталось получить то что в  srcset
-
-
-
-# zagolovok = ''
-# for i in zagolovoks:
-#     zagolovok = i.text.strip()
-
+take_information()
 
 
 
