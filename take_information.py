@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-
 import vk_authorization
 
 
@@ -28,8 +27,9 @@ def take_information():
     photo = soup_second.find_all(class_ ='detail__main-photo')[0].get('srcset') #получаем из списка нужный элемент
     photo_search = 'https://alshei.bashkortostan.ru' + photo[:-3]
     # print(photo_search)
-    super_text = zagolovok + '.' + '\n' + text + '\n' + ' Источник: ' + url_in_news
+    super_text = zagolovok + '.' + '\n' + text + '\n' + ' Источник: ' + url_in_news #формирую единный текст
     return super_text , photo_search
+
 
 token = vk_authorization.token # str ваш токен #разрешить работу с группой и смс для токена
 owner_id_group = vk_authorization.owner_id_group  #itn-число знак минус для id группы itn-число
@@ -39,9 +39,10 @@ response = requests.post('https://api.vk.com/method/wall.post', params={'access_
                                                                     'from_group': 1,
                                                                     'message': text_vk,
                                                                     'signed': 0,
-                                                                    'v':"5.131"}).json()
-print(response)
+                                                                    'v':"5.131"})
+print(response.text)
 
+To_
 
 # прога будет проверять каждый час новости
 #середина сделана
