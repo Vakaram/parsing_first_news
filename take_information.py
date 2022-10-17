@@ -1,13 +1,8 @@
-import time
-
-from bs4 import BeautifulSoup
-import requests
-
-import random
-import re
-import time
 import requests
 from bs4 import BeautifulSoup
+
+import vk_authorization
+
 
 def take_information():
     HEADERS = {
@@ -25,18 +20,27 @@ def take_information():
     r_second = requests.get('https://alshei.bashkortostan.ru'+ link_first_url, headers=HEADERS) #отправляемся по ссылке во внутр новости
     soup_second = BeautifulSoup(r_second.text, 'lxml')
     zagolovok = soup_second.find_all(class_="detail__title")[0].text.strip() #получил заголовок
-    print(zagolovok)
+    # print(zagolovok)
     text = soup_second.find_all(class_="detail__text")[0].text.strip() #получил текст
-    print(text)
+    # print(text)
     url_in_news  = 'https://alshei.bashkortostan.ru'+link_first_url
-    print(url_in_news)
+    # print(url_in_news)
     photo = soup_second.find_all(class_ ='detail__main-photo')[0].get('srcset') #получаем из списка нужный элемент
     photo_search = 'https://alshei.bashkortostan.ru' + photo[:-3]
-    print(photo_search)
+    # print(photo_search)
+    super_text = zagolovok + '.' + '\n' + text + '\n' + ' Источник: ' + url_in_news
+    return super_text , photo_search
 
-
-
-
+token = vk_authorization.token # str ваш токен #разрешить работу с группой и смс для токена
+owner_id_group = vk_authorization.owner_id_group  #itn-число знак минус для id группы itn-число
+text_vk, photo_url = take_information() #берём данные из функции
+response = requests.post('https://api.vk.com/method/wall.post', params={'access_token': token,
+                                                                    'owner_id': owner_id_group,
+                                                                    'from_group': 1,
+                                                                    'message': text_vk,
+                                                                    'signed': 0,
+                                                                    'v':"5.131"}).json()
+print(response)
 
 
 # прога будет проверять каждый час новости
