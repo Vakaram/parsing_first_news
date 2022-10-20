@@ -60,11 +60,8 @@ while True:
         #     text_otdixaem = str(time_now) + ' | ' + ' Мы проверили новость она не обновилась, просто спим 60 минут '  + ' | ' + ' OK' + '\n'
         #     with open('loger.txt', 'a') as f:
         #         f.write(text_otdixaem)
-    # except Exception as e: #ловим любую ошибку дописываем её в файл нот ок
-    #     time_now = datetime.now()
-    #     logi_in = str(time_now) + ' | ' + str(e) + ' | ' + ' NOT OK ' + '\n'
-    #     with open('loger.txt', 'a') as f:
-    #         f.write(logi_in)
+    except Exception as e: #ловим любую ошибку дописываем её в файл нот ок
+        pass
     time.sleep(randint(1900,3500)) # поменяй на каждые 20-30 минут видать часто новости прилетают
 
 
