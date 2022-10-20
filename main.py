@@ -50,21 +50,21 @@ while True:
                                                                                 'attachments': photo_url,
                                                                                 'signed': 0,
                                                                                 'v':"5.131"})
-            time_now = datetime.now()
-            logi_in = str(time_now) + ' | ' + str(response.text) + ' | ' + ' OK' + '\n'
+        #     time_now = datetime.now()
+        #     logi_in = str(time_now) + ' | ' + str(response.text) + ' | ' + ' OK' + '\n'
             print(response.text)
-            with open('loger.txt', 'a') as f:
-                f.write(logi_in) #всё что выше остаётся в цикле, и если ок то он пишет в логи но каждый час мы всё рановно будем делать действие ниже, будем записывать что новость не менялась и зачем её вообще ещё раз постить, отдыхаем час.
-        else:
-            time_now = datetime.now()
-            text_otdixaem = str(time_now) + ' | ' + ' Мы проверили новость она не обновилась, просто спим 60 минут '  + ' | ' + ' OK' + '\n'
-            with open('loger.txt', 'a') as f:
-                f.write(text_otdixaem)
-    except Exception as e: #ловим любую ошибку дописываем её в файл нот ок
-        time_now = datetime.now()
-        logi_in = str(time_now) + ' | ' + str(e) + ' | ' + ' NOT OK ' + '\n'
-        with open('loger.txt', 'a') as f:
-            f.write(logi_in)
+        #     with open('loger.txt', 'a') as f:
+        #         f.write(logi_in) #всё что выше остаётся в цикле, и если ок то он пишет в логи но каждый час мы всё рановно будем делать действие ниже, будем записывать что новость не менялась и зачем её вообще ещё раз постить, отдыхаем час.
+        # else:
+        #     time_now = datetime.now()
+        #     text_otdixaem = str(time_now) + ' | ' + ' Мы проверили новость она не обновилась, просто спим 60 минут '  + ' | ' + ' OK' + '\n'
+        #     with open('loger.txt', 'a') as f:
+        #         f.write(text_otdixaem)
+    # except Exception as e: #ловим любую ошибку дописываем её в файл нот ок
+    #     time_now = datetime.now()
+    #     logi_in = str(time_now) + ' | ' + str(e) + ' | ' + ' NOT OK ' + '\n'
+    #     with open('loger.txt', 'a') as f:
+    #         f.write(logi_in)
     time.sleep(randint(1900,3500)) # поменяй на каждые 20-30 минут видать часто новости прилетают
 
 
