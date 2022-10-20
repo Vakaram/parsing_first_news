@@ -62,6 +62,10 @@ while True:
         #         f.write(text_otdixaem)
     except Exception as e: #ловим любую ошибку дописываем её в файл нот ок
         pass
+        # time_now = datetime.now()
+        # logi_in = str(time_now) + ' | ' + str(e) + ' | ' + ' NOT OK ' + '\n'
+        # with open('loger.txt', 'a') as f:
+        #     f.write(logi_in)
     time.sleep(randint(1900,3500)) # поменяй на каждые 20-30 минут видать часто новости прилетают
 
 
